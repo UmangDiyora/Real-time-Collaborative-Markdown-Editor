@@ -1,0 +1,126 @@
+server:
+  host: "0.0.0.0"
+  port: 8080
+  websocket_port: 8081
+  environment: "development"  # development, staging, production
+  debug: true
+
+database:
+  postgres:
+    host: "localhost"
+    port: 5432
+    database: "markdown_collab"
+    username: "postgres"
+    password: "postgres"
+    max_connections: 100
+    max_idle_connections: 10
+    connection_lifetime: "1h"
+    ssl_mode: "disable"  # disable, require, verify-ca, verify-full
+
+redis:
+  host: "localhost"
+  port: 6379
+  password: ""
+  db: 0
+  max_retries: 3
+  pool_size: 10
+  min_idle_connections: 5
+
+auth:
+  jwt_secret: "change-this-to-a-secure-secret-key"
+  access_token_duration: "15m"
+  refresh_token_duration: "168h"  # 7 days
+  bcrypt_cost: 12
+  oauth:
+    google:
+      client_id: ""
+      client_secret: ""
+      redirect_url: "http://localhost:8080/auth/google/callback"
+    github:
+      client_id: ""
+      client_secret: ""
+      redirect_url: "http://localhost:8080/auth/github/callback"
+
+sync:
+  operation_buffer_size: 1000
+  sync_interval: "100ms"
+  snapshot_threshold: 100
+  max_operations_per_batch: 50
+  transformation_type: "ot"  # ot or crdt
+
+storage:
+  type: "local"  # local, s3
+  local:
+    path: "./data/uploads"
+    max_size: "10MB"
+  s3:
+    bucket: "markdown-docs"
+    region: "us-east-1"
+    access_key: ""
+    secret_key: ""
+    endpoint: ""  # Optional for S3-compatible services
+
+limits:
+  max_document_size: "10MB"
+  max_concurrent_connections: 1000
+  max_users_per_document: 100
+  rate_limit_requests: 100
+  rate_limit_duration: "1m"
+  max_documents_per_user: 1000
+
+email:
+  smtp_host: "smtp.gmail.com"
+  smtp_port: 587
+  smtp_username: ""
+  smtp_password: ""
+  from_address: "noreply@markdowncollab.com"
+  from_name: "Markdown Collab"
+
+monitoring:
+  prometheus:
+    enabled: true
+    port: 9090
+  sentry:
+    enabled: false
+    dsn: ""
+    environment: "development"
+
+logging:
+  level: "info"  # debug, info, warn, error
+  format: "json"  # json, text
+  output: "stdout"  # stdout, file
+  file_path: "./logs/app.log"
+  max_size: 100  # MB
+  max_backups: 3
+  max_age: 28  # days
+
+security:
+  cors:
+    allowed_origins:
+      - "http://localhost:3000"
+      - "http://localhost:8080"
+    allowed_methods:
+      - "GET"
+      - "POST"
+      - "PUT"
+      - "DELETE"
+      - "OPTIONS"
+    allowed_headers:
+      - "Content-Type"
+      - "Authorization"
+    allow_credentials: true
+  tls:
+    enabled: false
+    cert_file: ""
+    key_file: ""
+  rate_limiting:
+    enabled: true
+    requests_per_minute: 100
+
+features:
+  registration_enabled: true
+  email_verification_required: true
+  public_documents: true
+  document_versioning: true
+  export_enabled: true
+  import_enabled: true
