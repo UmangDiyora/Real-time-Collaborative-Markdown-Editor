@@ -1,0 +1,59 @@
+# Git
+.git
+.gitignore
+
+# Build artifacts
+bin/
+dist/
+build/
+*.bin
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Environment
+.env
+.env.local
+*.key
+*.pem
+
+# Configuration with secrets
+configs/config.yaml
+configs/*.secret.yaml
+
+# Database
+*.db
+*.sqlite
+
+# Logs
+*.log
+logs/
+
+# Temporary
+tmp/
+temp/
+*.tmp
+
+# Node
+node_modules/
+npm-debug.log
+
+# Test coverage
+coverage/
+coverage.out
+coverage.html
+
+# Docker
+docker-compose.override.yml
+Dockerfile.dev
+
+# Documentation
+*.md
+!README.md
+
+# OS
+.DS_Store
+Thumbs.db
